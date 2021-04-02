@@ -1,9 +1,12 @@
 package com.adidas.step_definitions;
 
+import com.adidas.pages.BasePage;
+import com.adidas.pages.Laptops;
 import com.adidas.pages.PurchasingPage;
 import com.adidas.utilities.BrowserUtils;
 import com.adidas.utilities.ConfigurationReader;
 import com.adidas.utilities.Driver;
+import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
@@ -36,13 +39,7 @@ public class PurchasingStepDefs {
 
     }
 
-    @Then("the customer  clicks on Sony vaio i5")
-    public void the_customer_clicks_on_Sony_vaio_i5() {
 
-        BrowserUtils.waitFor(2);
-        purchasingPage.Sony.click();
-
-    }
 
     @Then("the customer  clicks on Add to cart")
     public void the_customer_clicks_on_Add_to_cart() {
@@ -70,13 +67,7 @@ public class PurchasingStepDefs {
 
     }
 
-    @Then("the customer  clicks on Dell i7 8gb")
-    public void the_customer_clicks_on_Dell_i7_8gb() {
 
-        BrowserUtils.waitFor(2);
-        purchasingPage.Dell.click();
-
-    }
 
     @Then("the customer  clicks to Cart module")
     public void the_customer_clicks_to_Cart_module() {
@@ -131,17 +122,11 @@ public class PurchasingStepDefs {
     public void the_customer_captures_and_logs_purchase_Id_and_Amount() {
 
         BrowserUtils.waitFor(2);
-        List<String> elemTexts = new ArrayList<>();
 
-        for (WebElement el : purchasingPage.Id) {
-            elemTexts.add(el.getText());
-            Assert.assertTrue(el.getText().contains("Amount"));
-            if(el.getText().contains("Id") ){
-                System.out.println(el.getText());
-                break;
-            }
-        }
-
+       int id = purchasingPage.getID();
+       int price = purchasingPage.getPrice();
+        System.out.println("id = " + id);
+        System.out.println("price = " + price);
 
 
 //
@@ -176,9 +161,11 @@ public class PurchasingStepDefs {
     @Then("purchase amount equals expected")
     public void purchase_amount_equals_expected() {
         BrowserUtils.waitFor(2);
-        String ExpectedAmount="Amount: 790 USD";
-       System.out.println(purchasingPage.a.getText());
 
+        int expectedResult =  Laptops.getPrice();
+
+       System.out.println(purchasingPage.a.getText());
+        System.out.println("expectedResult = " + expectedResult);
     }
 
     @Then("the customer  clicks on Ok")
@@ -188,7 +175,9 @@ public class PurchasingStepDefs {
     }
 
 
-
-
-
+    @And("the customer  clicks on {string}")
+    public void theCustomerClicksOnSonyVaioI(String searchProduct) {
+        Laptops.clickProduct(searchProduct);
+       // System.out.println("Laptops.getPrice(searchProduct) = " + Laptops.getPrice(searchProduct));
+    }
 }

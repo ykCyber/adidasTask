@@ -1,6 +1,7 @@
 package com.adidas.pages;
 
 import com.adidas.utilities.Driver;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
@@ -11,7 +12,7 @@ public abstract class BasePage {
     public BasePage() {
         PageFactory.initElements(Driver.get(), this);
     }
-
+    String productName;
     @FindBy(linkText = "Laptops")
     public WebElement Laptops;
 
@@ -73,16 +74,8 @@ public abstract class BasePage {
     @FindBy(css = "button.confirm.btn.btn-lg.btn-primary")
     public WebElement OkButton;
 
-
-
-
-
-
-
-
-
-
-
-
+    public void navigateTO(String moduleName){
+        Driver.get().findElement(By.linkText(moduleName)).click();
+    }
 
 }
